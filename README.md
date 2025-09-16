@@ -15,6 +15,7 @@ OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●
 - **입력 소스**: `0`(웹캠) 또는 `rtsp://id:pw@ip/stream`
 
 ## 🧪 Screenshots / Demo
+- **녹화 전 Preview 인터페이스**
 ![Main UI 1](assets/screenshot_main2.png)
 
 ![Main UI 2](assets/screenshot_main1.png)
