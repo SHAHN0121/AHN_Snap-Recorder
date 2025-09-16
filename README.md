@@ -1,36 +1,129 @@
 # AHN_Snap-Recorder
 OpenCV + PySide6 GUI video recorder (Preview/Record, Snapshot, Enter-to-Connect)
 
-OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●/타이머 오버레이), 스냅샷, 단축키(Space/S/ESC), **Enter로 Connect**를 지원
+OpenCV와 PySide6를 활용한 실시간 비디오 녹화 및 스냅샷 도구입니다. 웹캠과 IP 카메라를 지원하며, 직관적인 GUI와 키보드 단축키를 제공합니다.
 
-## ✨ Features
-- **Preview / Record**: 실시간 미리보기, Space로 녹화 토글 (● + 타이머)
-- **동영상 저장**: `cv2.VideoWriter` 사용. 실행 시 코덱 호환성 자동 탐색(MJPG/XVID/MP4V 등)
-- **스냅샷**: 현재 프레임을 PNG로 저장
-- **키 바인딩**  
-  - `Enter`(Source 입력창): Connect  
-  - `Space`: 녹화 시작/정지  
-  - `S`: 스냅샷  
-  - `ESC`: 종료
-- **입력 소스**: `0`(웹캠) 또는 `rtsp://id:pw@ip/stream`
+## ✨ 주요 기능
 
-## 🧪 Screenshots / Demo
-- **녹화 전 Preview 인터페이스**
-  
-![Main UI 1](assets/screenshot_main2.png)
+### 기본 기능
+- **실시간 카메라 영상 표시**: OpenCV의 `cv2.VideoCapture`를 이용하여 카메라 영상 실시간 출력
+- **동영상 파일 저장**: OpenCV의 `cv2.VideoWriter`를 이용한 동영상 파일 생성
+- **Preview/Record 모드**: 
+  - Preview 모드: 실시간 미리보기만 표시
+  - Record 모드: 화면에 빨간색 원(●)과 녹화 시간 표시
+- **키보드 제어**:
+  - `Space`: Preview ↔ Record 모드 전환
+  - `ESC`: 프로그램 종료
 
-- **녹화 시작 Record 인터페이스**
+### 추가 기능
+- **코덱 자동 탐색**: 시스템 호환성에 따라 MJPG/XVID/MP4V 코덱 자동 선택
+- **스냅샷 기능**: 현재 프레임을 PNG 파일로 저장 (`S` 키)
+- **FPS 조정**: 캡처된 FPS에 따른 자동 조정 (1-30fps 범위)
+- **IP 카메라 지원**: RTSP 프로토콜을 통한 원격 카메라 연결
+- **GUI 인터페이스**: PySide6 기반 사용자 친화적 인터페이스
+- **실시간 상태 표시**: 해상도, FPS, 녹화 시간 오버레이
+- **폴백 모드**: 코덱 실패 시 개별 프레임 저장 및 FFmpeg 변환 가이드
 
-![Main UI 2](assets/screenshot_main1.png)
+## 🔧 시스템 요구사항
 
-- **녹화 영상 출력 샘플**
+### Python 환경
+- Python 3.8 이상
+- OpenCV 4.x 
+- PySide6 6.x
 
-![Demo](assets/rec_20250915_234256.gif)
-
-[Demo video (MP4)](assets/rec_20250915_234256.mp4)
-
-## 📦 Requirements
+### 설치 방법
 ```bash
+# 필수 패키지 설치
 pip install opencv-python PySide6
 
+# 또는 requirements.txt 사용
+pip install -r requirements.txt
+```
+
+### requirements.txt
+```
+opencv-python>=4.5.0
+PySide6>=6.0.0
+```
+
+### 기본 조작
+1. **소스 연결**: 
+   - 웹캠: `0` (기본값)
+   - IP 카메라: `rtsp://id:pw@ip/stream` 형식
+   - `Enter` 키 또는 Connect 버튼으로 연결
+
+2. **녹화 제어**:
+   - `Space` 키 또는 REC 버튼으로 녹화 시작/중지
+   - 녹화 중 빨간 원(●) 표시 및 경과 시간 표시
+
+3. **스냅샷**: `S` 키 또는 Snapshot 버튼으로 현재 프레임 저장
+
+4. **종료**: `ESC` 키 또는 Exit 버튼
+
+### 키보드 단축키
+| 키 | 기능 |
+|---|---|
+| `Enter` | 소스 연결 |
+| `Space` | 녹화 시작/중지 |
+| `S` | 스냅샷 |
+| `ESC` | 프로그램 종료 |
+
+
+## 🎬 스크린샷 및 데모
+
+### Preview 모드
+![Preview Mode](assets/screenshot_main2.png)
+*실시간 카메라 영상 미리보기*
+
+### Record 모드
+![Record Mode](assets/screenshot_main1.png)
+*녹화 중 - 빨간 원과 타이머 표시*
+
+### 데모 영상
+![Demo](assets/rec_20250915_234256.gif)
+*실제 녹화 영상 샘플*
+
+## 🔧 기술적 세부사항
+
+### 코덱 호환성
+프로그램 시작 시 다음 순서로 코덱 호환성을 자동 탐색합니다:
+1. **MJPG (.avi)**: Motion-JPEG, Windows에서 가장 안정적
+2. **XVID (.avi)**: Xvid 코덱
+3. **MP4V (.mp4)**: MPEG-4, 일부 환경에서 제한적
+
+### 폴백 시스템
+- 모든 코덱이 실패할 경우 개별 프레임을 JPEG로 저장
+- FFmpeg를 통한 동영상 변환 가이드 제공:
+```bash
+ffmpeg -r 20 -i frames_폴더/frame_%06d.jpg -c:v libx264 -pix_fmt yuv420p output.mp4
+```
+
+### 성능 최적화
+- EMA(Exponential Moving Average) 방식의 FPS 계산
+- 표시용과 저장용 프레임 분리로 오버레이 간섭 방지
+- 타이머 기반 비동기 프레임 처리 (10ms 간격)
+
+## 🐛 트러블슈팅
+
+### 일반적인 문제
+1. **카메라 연결 실패**
+   - 다른 프로그램에서 카메라 사용 중인지 확인
+   - 웹캠 드라이버 설치 확인
+   
+2. **녹화 파일 생성 실패**
+   - 디스크 용량 확인
+   - 쓰기 권한 확인
+   - 코덱 호환성 메시지 확인
+
+3. **IP 카메라 연결 문제**
+   - 네트워크 연결 상태 확인
+   - RTSP URL 형식 확인: `rtsp://username:password@ip:port/stream`
+
+## 📋 개발 환경
+
+- **개발 언어**: Python 3.8+
+- **GUI 프레임워크**: PySide6
+- **컴퓨터 비전**: OpenCV
+- **타입 힌트**: `from __future__ import annotations` 사용
+- **패키지 관리**: pip
 
