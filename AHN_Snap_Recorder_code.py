@@ -21,7 +21,7 @@ DEFAULT_SOURCE = "0"  # 웹캠: "0", RTSP
 SAVE_DIR = Path("videos");    SAVE_DIR.mkdir(exist_ok=True)
 SNAP_DIR = Path("snapshots"); SNAP_DIR.mkdir(exist_ok=True)
 
-# Windows 중심 실전 우선순위(간결화 버전): 안정적인 후보만 남김
+# Windows 중심 실전 우선순위
 CODEC_CANDIDATES: list[Tuple[str, str]] = [
     ("MJPG", ".avi"),   # Motion-JPEG: Windows에서 가장 안정적
     ("XVID", ".avi"),   # Xvid
@@ -39,7 +39,7 @@ class VideoRecorderUI(QWidget):
     # ---- 초기화/상태 ---------------------------------------------------------
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("Video Recorder")
+        self.setWindowTitle("AHN_Snap-Recorder")
 
         # OpenCV 핸들/상태
         self.cap: Optional[cv2.VideoCapture] = None
@@ -364,3 +364,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
