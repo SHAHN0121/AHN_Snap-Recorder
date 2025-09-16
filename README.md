@@ -16,9 +16,14 @@ OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●
 
 ## 🧪 Screenshots / Demo
 - **녹화 전 Preview 인터페이스**
+  
 ![Main UI 1](assets/screenshot_main2.png)
 
+- **녹화 시작 Record 인터페이스**
+
 ![Main UI 2](assets/screenshot_main1.png)
+
+- **녹화 영상 출력 샘플**
 
 ![Demo](assets/rec_20250915_234256.gif)
 
