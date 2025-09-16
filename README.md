@@ -17,3 +17,7 @@ OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●
 ## 📦 Requirements
 ```bash
 pip install opencv-python PySide6
+
+## 🧪 Screenshots / Demo
+![Main UI](assets/screenshot_main1.png)
+![Main UI](assets/screenshot_main2.png)
