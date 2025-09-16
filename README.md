@@ -1,7 +1,6 @@
 # AHN_Snap-Recorder
 OpenCV + PySide6 GUI video recorder (Preview/Record, Snapshot, Enter-to-Connect)
 
-# AHN_Snap-Recorder
 OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●/타이머 오버레이), 스냅샷, 단축키(Space/S/ESC), **Enter로 Connect**를 지원합니다.
 
 ## ✨ Features
