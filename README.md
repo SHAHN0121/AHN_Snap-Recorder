@@ -15,15 +15,15 @@ OpenCV + PySide6 기반 비디오 레코더 GUI. 미리보기, 녹화(빨간 ●
 - **입력 소스**: `0`(웹캠) 또는 `rtsp://id:pw@ip/stream`
 
 ## 🧪 Screenshots / Demo
-![Main UI](assets/screenshot_main1.png)
+![Main UI 1](assets/screenshot_main1.png)
+
 [Demo video (MP4)](assets/rec_20250915_234256.mp4)
 
-![Main UI](assets/screenshot_main2.png)
-
-
+![Main UI 2](assets/screenshot_main2.png)
 
 ## 📦 Requirements
 ```bash
 pip install opencv-python PySide6
+
 
 
